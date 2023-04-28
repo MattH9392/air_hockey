@@ -1,8 +1,9 @@
-import org.w3c.dom.css.Rect;
-
 public class Driver {
     public static void main(String[] args)
     {
+        int playerSpeed = 4;
+
+
         GameArena game1 = new GameArena(1200, 600, true);
 
         Rectangle bordRectangle = new Rectangle(100, 50, 1000, 500, "BLUE", 0);
@@ -38,9 +39,65 @@ public class Driver {
         game1.addText(player2Score);
         
 
-        
 
-        //game1.run();
+        while(true)
+        {
+            if(game1.letterPressed('W'))
+            {
+                player1.setYPosition(player1.getYPosition() - playerSpeed);
+                System.out.println("W pressed");
+            }
+
+            if(game1.letterPressed('A'))
+            {
+                player1.setXPosition(player1.getXPosition() - playerSpeed);
+                System.out.println("A pressed");
+            }
+
+            if(game1.letterPressed('S'))
+            {
+                player1.setYPosition(player1.getYPosition() + playerSpeed);
+                System.out.println("S pressed");
+            }
+
+            if(game1.letterPressed('D'))
+            {
+                player1.setXPosition(player1.getXPosition() + playerSpeed);
+                System.out.println("D pressed");
+            }
+
+
+            if(game1.letterPressed('I'))
+            {
+                player2.setYPosition(player2.getYPosition() - playerSpeed);
+                System.out.println("I pressed");
+            }
+
+            if(game1.letterPressed('J'))
+            {
+                player2.setXPosition(player2.getXPosition() - playerSpeed);
+                System.out.println("J pressed");
+            }
+
+            if(game1.letterPressed('K'))
+            {
+                player2.setYPosition(player2.getYPosition() + playerSpeed);
+                System.out.println("K pressed");
+            }
+
+            if(game1.letterPressed('L'))
+            {
+                player2.setXPosition(player2.getXPosition() + playerSpeed);
+                System.out.println("L pressed");
+            }
+
+            
+            game1.pause();
+        }
+
+    
+
+        
         
     }
 }
