@@ -14,6 +14,8 @@ public class Ball
 	private double size;				// The diameter of this Ball
 	private int layer;					// The layer of this ball is on.
 	private String colour;				// The colour of this Ball
+	private double[] speed = {0, 0};	// The speed of this Ball: two separate values, for x and y directions.
+
 
 										// Permissible colours are:
 										// BLACK, BLUE, CYAN, DARKGREY, GREY,
@@ -143,6 +145,22 @@ public class Ball
 		colour = c;
 	}
 
+	public double[] getSpeed()
+	{
+		return speed;
+	}
+
+	public void setXSpeed(double xSpeed)
+	{
+		this.speed[0] = xSpeed;
+	}
+
+	public void setYSpeed(double ySpeed)
+	{
+		this.speed[1] = ySpeed;
+	}
+
+
 	/**
 	 * Moves this Ball by the given amount.
 	 * 
@@ -170,4 +188,5 @@ public class Ball
 
 		return distance < size/2 + b.size/2;
 	}
+
 }

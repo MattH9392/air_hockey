@@ -728,12 +728,13 @@ public class GameArena extends JPanel implements Runnable, KeyListener, MouseLis
 		return mouseY;
 	}
 
-	public void deflect()
+
+	public double[] deflect(Ball player, Ball puck)
 	{
 		// The position and speed of each of the two balls in the x and y axis before collision.
 		// YOU NEED TO FILL THESE VALUES IN AS APPROPRIATE...
-		double xPosition1 = 1, xPosition2 = 1, yPosition1 = 1, yPosition2 = 1;
-		double xSpeed1 = 1, xSpeed2 = 1, ySpeed1 = 1, ySpeed2 = 1;
+		double xPosition1 = player.getXPosition(), xPosition2 = puck.getXPosition(), yPosition1 = player.getYPosition(), yPosition2 = puck.getYPosition();
+		double xSpeed1 = player.getSpeed()[0] + 1, xSpeed2 = puck.getSpeed()[0] + 1, ySpeed1 = player.getSpeed()[1] + 1, ySpeed2 = puck.getSpeed()[1] + 1;
 		// Calculate initial momentum of the balls... We assume unit mass here.
 		double p1InitialMomentum = Math.sqrt(xSpeed1 * xSpeed1 + ySpeed1 * ySpeed1);
 		double p2InitialMomentum = Math.sqrt(xSpeed2 * xSpeed2 + ySpeed2 * ySpeed2);
@@ -763,7 +764,12 @@ public class GameArena extends JPanel implements Runnable, KeyListener, MouseLis
 		ySpeed1 = p1FinalTrajectory[1] * mag;
 		xSpeed2 = p2FinalTrajectory[0] * mag;
 		ySpeed2 = p2FinalTrajectory[1] * mag;
+
+		return p2FinalTrajectory;
 		}
+
+
+
 		/**
 		 * Converts a vector into a unit vector.
 		 * Used by the deflect() method to calculate the resultant direction after a collision.
