@@ -1,7 +1,7 @@
 public class Driver {
     public static void main(String[] args)
     {
-        int moveSpeed = 1;
+        int moveSpeed = 5;
 
         int arenaWidth = 1200;
         int arenaHeight = 600;
@@ -56,7 +56,7 @@ public class Driver {
             if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 && puckBall.getYPosition() > 200 - puckBall.getSize() / 2 && puckBall.getYPosition() < 400 + puckBall.getSize() / 2)
             {
                 System.out.println("player 2 scored!");
-                puckBall.setXPosition(600);
+                puckBall.setXPosition(550);
                 puckBall.setYPosition(300);
                 puckBall.setXSpeed(0);
                 puckBall.setYSpeed(0);
@@ -75,7 +75,7 @@ public class Driver {
             if(puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2 && puckBall.getYPosition() > 200 - puckBall.getSize() / 2 && puckBall.getYPosition() < 400 + puckBall.getSize() / 2)
             {
                 System.out.println("player 1 scored!");
-                puckBall.setXPosition(600);
+                puckBall.setXPosition(650);
                 puckBall.setYPosition(300);
                 puckBall.setXSpeed(0);
                 puckBall.setYSpeed(0);
@@ -95,7 +95,7 @@ public class Driver {
             if(game1.letterPressed('W'))
             {
                 if(player1.getYPosition() > 75 + player1.getSize() / 2)
-                    player1.setYPosition(player1.getYPosition() - 4);
+                    player1.setYPosition(player1.getYPosition() - moveSpeed);
                     player1.setYSpeed(-moveSpeed);
                 System.out.println("W pressed");
             }
@@ -103,7 +103,7 @@ public class Driver {
             if(game1.letterPressed('A'))
             {
                 if(player1.getXPosition() > 125 + player1.getSize() / 2)
-                    player1.setXPosition(player1.getXPosition() - 4);
+                    player1.setXPosition(player1.getXPosition() - moveSpeed);
                     player1.setXSpeed(-moveSpeed);
                 System.out.println("A pressed");
             }
@@ -111,7 +111,7 @@ public class Driver {
             if(game1.letterPressed('S'))
             {
                 if(player1.getYPosition() < 525 - player1.getSize() / 2)
-                    player1.setYPosition(player1.getYPosition() + 4);
+                    player1.setYPosition(player1.getYPosition() + moveSpeed);
                     player1.setYSpeed(moveSpeed);
                 System.out.println("S pressed");
             }
@@ -119,7 +119,7 @@ public class Driver {
             if(game1.letterPressed('D'))
             {
                 if(player1.getXPosition() < centreLine.getXStart() - player1.getSize() / 2)
-                    player1.setXPosition(player1.getXPosition() + 4);
+                    player1.setXPosition(player1.getXPosition() + moveSpeed);
                     player1.setXSpeed(moveSpeed);
                 System.out.println("D pressed");
             }
@@ -128,7 +128,7 @@ public class Driver {
             if(game1.letterPressed('I'))
             {
                 if(player2.getYPosition() > 75 + player2.getSize() / 2)
-                    player2.setYPosition(player2.getYPosition() - 4);
+                    player2.setYPosition(player2.getYPosition() - moveSpeed);
                     player2.setYSpeed(-moveSpeed);
                 System.out.println("I pressed");
             }
@@ -136,7 +136,7 @@ public class Driver {
             if(game1.letterPressed('J'))
             {
                 if(player2.getXPosition() > centreLine.getXStart() + player2.getSize() / 2)
-                    player2.setXPosition(player2.getXPosition() - 4);
+                    player2.setXPosition(player2.getXPosition() - moveSpeed);
                     player2.setXSpeed(-moveSpeed);
                 System.out.println("J pressed");
             }
@@ -144,7 +144,7 @@ public class Driver {
             if(game1.letterPressed('K'))
             {
                 if(player2.getYPosition() < 525 - player2.getSize() / 2)
-                    player2.setYPosition(player2.getYPosition() + 4);
+                    player2.setYPosition(player2.getYPosition() + moveSpeed);
                     player2.setYSpeed(moveSpeed);
                 System.out.println("K pressed");
             }
@@ -152,7 +152,7 @@ public class Driver {
             if(game1.letterPressed('L'))
             {
                 if(player2.getXPosition() < 1075 - player2.getSize() / 2)
-                    player2.setXPosition(player2.getXPosition() + 4);
+                    player2.setXPosition(player2.getXPosition() + moveSpeed);
                     player2.setXSpeed(moveSpeed);
                 System.out.println("L pressed");
             }
@@ -173,12 +173,12 @@ public class Driver {
             }
 
 
-            if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 || puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2)
+            if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 && puckBall.getSpeed()[0] < 0 || puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2 && puckBall.getSpeed()[0] > 0)
             {
                 puckBall.setXSpeed(puckBall.getSpeed()[0] *= -1);
             }
 
-            if(puckBall.getYPosition() <= 75 + puckBall.getSize() / 2 || puckBall.getYPosition() >= 525 - puckBall.getSize() / 2)
+            if(puckBall.getYPosition() <= 75 + puckBall.getSize() / 2 && puckBall.getSpeed()[1] < 0 || puckBall.getYPosition() >= 525 - puckBall.getSize() / 2 && puckBall.getSpeed()[1] > 0)
             {
                 puckBall.setYSpeed(puckBall.getSpeed()[1] *= -1);
             }
