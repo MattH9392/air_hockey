@@ -1,11 +1,13 @@
 public class Driver {
     public static void main(String[] args)
     {
-        int moveSpeed = 4;
+        int moveSpeed = 1;
 
         int arenaWidth = 1200;
         int arenaHeight = 600;
 
+        int p1Score = 0;
+        int p2Score = 0;
 
         GameArena game1 = new GameArena(arenaWidth, arenaHeight, true);
 
@@ -48,6 +50,46 @@ public class Driver {
             player1.setYSpeed(0);
             player2.setXSpeed(0);
             player2.setYSpeed(0);
+
+
+            // Check if goal scored. If scored, reset the positions of the puck and players and add 1 to the corresponding player score.
+            if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 && puckBall.getYPosition() > 200 - puckBall.getSize() / 2 && puckBall.getYPosition() < 400 + puckBall.getSize() / 2)
+            {
+                System.out.println("player 2 scored!");
+                puckBall.setXPosition(600);
+                puckBall.setYPosition(300);
+                puckBall.setXSpeed(0);
+                puckBall.setYSpeed(0);
+
+                player1.setXPosition(300);
+                player1.setYPosition(300);
+
+                player2.setXPosition(900);
+                player2.setYPosition(300);
+
+                p2Score++;
+                player2Score.setText(Integer.toString(p2Score));
+                continue;
+            }
+
+            if(puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2 && puckBall.getYPosition() > 200 - puckBall.getSize() / 2 && puckBall.getYPosition() < 400 + puckBall.getSize() / 2)
+            {
+                System.out.println("player 1 scored!");
+                puckBall.setXPosition(600);
+                puckBall.setYPosition(300);
+                puckBall.setXSpeed(0);
+                puckBall.setYSpeed(0);
+
+                player1.setXPosition(300);
+                player1.setYPosition(300);
+
+                player2.setXPosition(900);
+                player2.setYPosition(300);
+
+                p1Score++;
+                player1Score.setText(Integer.toString(p1Score));
+                continue;
+            }
 
 
             if(game1.letterPressed('W'))
@@ -116,17 +158,6 @@ public class Driver {
             }
 
 
-            if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 || puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2)
-            {
-                puckBall.setXSpeed(puckBall.getSpeed()[0] *= -1);
-            }
-
-            if(puckBall.getYPosition() <= 75 + puckBall.getSize() / 2|| puckBall.getYPosition() >= 525 - puckBall.getSize() / 2)
-            {
-                puckBall.setYSpeed(puckBall.getSpeed()[1] *= -1);
-            }
-
-
             if(player1.collides(puckBall))
             {
                 System.out.println("player1 collides with puck");
@@ -141,14 +172,22 @@ public class Driver {
                 puckBall.setYSpeed(game1.deflect(player2, puckBall)[1]);
             }
 
+
+            if(puckBall.getXPosition() <= 125 + puckBall.getSize() / 2 || puckBall.getXPosition() >= 1075 - puckBall.getSize() / 2)
+            {
+                puckBall.setXSpeed(puckBall.getSpeed()[0] *= -1);
+            }
+
+            if(puckBall.getYPosition() <= 75 + puckBall.getSize() / 2 || puckBall.getYPosition() >= 525 - puckBall.getSize() / 2)
+            {
+                puckBall.setYSpeed(puckBall.getSpeed()[1] *= -1);
+            }
+
             puckBall.move(puckBall.getSpeed()[0], puckBall.getSpeed()[1]);
             
             puckBall.setXSpeed(puckBall.getSpeed()[0] *= 0.99);
             puckBall.setYSpeed(puckBall.getSpeed()[1] *= 0.99);
 
-            System.out.println("\nPuck X speed: " + puckBall.getSpeed()[0]);
-            System.out.println("Puck Y speed: " + puckBall.getSpeed()[1]);
-            
             game1.pause();
         }
     }
