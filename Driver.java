@@ -29,6 +29,8 @@ public class Driver {
         }
 
 
+        // initialise arena
+
         int arenaWidth = 1200;
         int arenaHeight = 600;
 
@@ -53,6 +55,7 @@ public class Driver {
         Text player1Score = new Text("0", 50, 25, 325, "WHITE");
         Text player2Score = new Text("0", 50, 1125, 325, "WHITE");
 
+        Text winText = new Text("", 25, 100, 50, "GREEN", 7);
 
         
         game1.addRectangle(bordRectangle);
@@ -70,6 +73,7 @@ public class Driver {
 
         game1.addText(player1Score);
         game1.addText(player2Score);
+        game1.addText(winText);
 
 
         if(winScore == 50) // cheat code: doubles the size of player 1
@@ -80,33 +84,38 @@ public class Driver {
         else if(winScore == 60) // cheat code: doubles the size of player 2
         {
             player2.setSize(player2.getSize() * 2);
+            winScore = 6;
         }
-        else
-            System.out.println("The first player to reach a score of " + winScore + " wins!");
+        winText.setText("The first player to reach a score of " + winScore + " wins! Toggle sound: 'v'");
 
-        if(sounds)
-            new SoundPlayer("fanfare.wav");
+        new SoundPlayer("fanfare.wav");
 
         while(true)
         {
-            if(p1Score == winScore)
+            if(p1Score == winScore) // check win condition met
             {
                 boolean instructionGiven = false;
-                Text winText = new Text("Player 1 wins! Press space to start a new game or Q to quit.", 25, 100, 50, "GREEN", 7);
-                game1.addText(winText);
+                winText.setText("Player 1 wins! Press space to start a new game or Q to quit.");
+
+                // reset position of puck
+                puckBall.setXPosition(600);
+                puckBall.setYPosition(300);
                 
                 // pause until required key pressed
                 if(instructionGiven == false)
-                    if(game1.spacePressed())
+                    if(game1.spacePressed()) // restart game
                     {
+                        // reset player scores
                         p1Score = 0;
                         p2Score = 0;
                         player1Score.setText(Integer.toString(0));
                         player2Score.setText(Integer.toString(0));
-                        game1.removeText(winText);
+                        winText.setText("The first player to reach a score of " + winScore + " wins! Toggle sound: 'v'");
+
+                        new SoundPlayer("fanfare.wav");
                         continue;
                     }
-                    if(game1.letterPressed('q'))
+                    if(game1.letterPressed('q')) // quit game
                     {
                         game1.exit();
                     }
@@ -115,33 +124,39 @@ public class Driver {
 
             }
 
-            if(p2Score == winScore)
+            if(p2Score == winScore) // check win condition met
             {
                 boolean instructionGiven = false;
-                Text winText = new Text("Player 2 wins! Press space to start a new game or Q to quit.", 25, 100, 50, "GREEN", 7);
-                game1.addText(winText);
+                winText.setText("Player 2 wins! Press space to start a new game or Q to quit.");
+
+                // reset position of puck
+                puckBall.setXPosition(600);
+                puckBall.setYPosition(300);
                 
                 // pause until required key pressed
                 if(instructionGiven == false)
-                    if(game1.spacePressed())
+                    if(game1.spacePressed()) // restart game
                     {
+                        // reset player scores
                         p1Score = 0;
                         p2Score = 0;
-                        game1.removeText(winText);
                         player1Score.setText(Integer.toString(0));
                         player2Score.setText(Integer.toString(0));
+                        winText.setText("The first player to reach a score of " + winScore + " wins! Toggle sound: 'v'");
+
+                        new SoundPlayer("fanfare.wav");
                         continue;
                     }
-                    if(game1.letterPressed('q'))
+                    if(game1.letterPressed('q')) // quit game
                     {
                         game1.exit();
                     }
                     game1.pause();
-                    continue;
+                    continue; // ignore all other code within the while loop until condition met
 
             }
 
-
+            // update player speeds to 0
             player1.setXSpeed(0);
             player1.setYSpeed(0);
             player2.setXSpeed(0);
@@ -165,14 +180,14 @@ public class Driver {
                 player2.setYPosition(300);
 
                 p2Score++;
-                if(p2Score == winScore)
+                if(p2Score == winScore) // if win score reached, play a different sound
                     if(sounds)
                         new SoundPlayer("drumroll.wav");
                 else
                     if(sounds)
                         new SoundPlayer("applause.wav");
                     
-                player2Score.setText(Integer.toString(p2Score));
+                player2Score.setText(Integer.toString(p2Score)); // update score display
                 continue;
             }
 
@@ -192,23 +207,23 @@ public class Driver {
                 player2.setYPosition(300);
 
                 p1Score++;
-                if(p1Score == winScore)
+                if(p1Score == winScore) // if win score reached, play a different sound
                     if(sounds)
                         new SoundPlayer("drumroll.wav");
                 else
                     if(sounds)
                         new SoundPlayer("applause.wav");
 
-                player1Score.setText(Integer.toString(p1Score));
+                player1Score.setText(Integer.toString(p1Score)); // update score display
                 continue;
             }
 
 
-            if(game1.letterPressed('V'))
+            if(game1.letterPressed('V')) // toggle sounds
                 sounds = !sounds;
 
             
-            if(game1.letterPressed('W')) //
+            if(game1.letterPressed('W')) // player 1 move up
             {
                 if(player1.getYPosition() > 75 + player1.getSize() / 2)
                     player1.setYPosition(player1.getYPosition() - moveSpeed);
@@ -216,7 +231,7 @@ public class Driver {
                 System.out.println("W pressed");
             }
 
-            if(game1.letterPressed('A'))
+            if(game1.letterPressed('A')) // player 1 move left
             {
                 if(player1.getXPosition() > 125 + player1.getSize() / 2)
                     player1.setXPosition(player1.getXPosition() - moveSpeed);
@@ -224,7 +239,7 @@ public class Driver {
                 System.out.println("A pressed");
             }
 
-            if(game1.letterPressed('S'))
+            if(game1.letterPressed('S')) // player 1 move down
             {
                 if(player1.getYPosition() < 525 - player1.getSize() / 2)
                     player1.setYPosition(player1.getYPosition() + moveSpeed);
@@ -232,7 +247,7 @@ public class Driver {
                 System.out.println("S pressed");
             }
 
-            if(game1.letterPressed('D'))
+            if(game1.letterPressed('D')) // player 1 move right
             {
                 if(player1.getXPosition() < centreLine.getXStart() - player1.getSize() / 2)
                     player1.setXPosition(player1.getXPosition() + moveSpeed);
@@ -241,7 +256,7 @@ public class Driver {
             }
 
 
-            if(game1.letterPressed('I'))
+            if(game1.letterPressed('I')) // player 2 move up
             {
                 if(player2.getYPosition() > 75 + player2.getSize() / 2)
                     player2.setYPosition(player2.getYPosition() - moveSpeed);
@@ -249,7 +264,7 @@ public class Driver {
                 System.out.println("I pressed");
             }
 
-            if(game1.letterPressed('J'))
+            if(game1.letterPressed('J')) // player 2 move left
             {
                 if(player2.getXPosition() > centreLine.getXStart() + player2.getSize() / 2)
                     player2.setXPosition(player2.getXPosition() - moveSpeed);
@@ -257,7 +272,7 @@ public class Driver {
                 System.out.println("J pressed");
             }
 
-            if(game1.letterPressed('K'))
+            if(game1.letterPressed('K')) // player 2 move down
             {
                 if(player2.getYPosition() < 525 - player2.getSize() / 2)
                     player2.setYPosition(player2.getYPosition() + moveSpeed);
@@ -265,7 +280,7 @@ public class Driver {
                 System.out.println("K pressed");
             }
             
-            if(game1.letterPressed('L'))
+            if(game1.letterPressed('L')) // player 2 move right
             {
                 if(player2.getXPosition() < 1075 - player2.getSize() / 2)
                     player2.setXPosition(player2.getXPosition() + moveSpeed);
@@ -274,7 +289,7 @@ public class Driver {
             }
 
 
-            if(player1.collides(puckBall))
+            if(player1.collides(puckBall)) // change velocity of puck on collision with player
             {
                 System.out.println("player1 collides with puck");
                 if(sounds)
@@ -284,7 +299,7 @@ public class Driver {
                 puckBall.move(puckBall.getSpeed()[0] + player1.getSpeed()[0], puckBall.getSpeed()[1] + player1.getSpeed()[1]);
             }
 
-            if(player2.collides(puckBall))
+            if(player2.collides(puckBall)) // change velocity of puck on collision with player
             {
                 System.out.println("player2 collides with puck");
                 if(sounds)
@@ -316,7 +331,7 @@ public class Driver {
             puckBall.setXSpeed(puckBall.getSpeed()[0] *= 0.995);
             puckBall.setYSpeed(puckBall.getSpeed()[1] *= 0.995);
 
-            game1.pause();
+            game1.pause(); // briefly pause the game to provide animation:
         }
     }
 }
