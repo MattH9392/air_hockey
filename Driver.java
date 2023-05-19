@@ -13,7 +13,7 @@ public class Driver {
      */
     public static void main(String[] args)
     {
-        int winScore = 0;
+        int winScore = 6;
         int moveSpeed = 5;
         boolean sounds = true;
 
