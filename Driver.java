@@ -20,18 +20,18 @@ public class Driver {
 
         System.out.println("Welcome to air hockey! \nThe controls for player 1 (left) are the w, a, s and d keys \nand the controls for player 2 (right) are the i, j, k, and l keys.");
         Scanner input = new Scanner(System.in);
-        while(winScore <= 0 || winScore > 99)
-        {
+        do {
             System.out.println("What score would you like to play until? (max. 99): ");
             winScore = input.nextInt();
             if(winScore <= 0 || winScore > 99)
                 System.out.println("The score must be a whole number between 1 and 99.");
-        }
+        } while(winScore <= 0 || winScore > 99);
 
 
         // initialise arena
 
         int arenaWidth = 1200;
+        
         int arenaHeight = 600;
 
         int p1Score = 0;
